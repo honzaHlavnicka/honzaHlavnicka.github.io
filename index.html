@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sdílení souborů</title>
+    <style>
+      body{
+        padding:0;
+        margin:0;
+      }
+    h1, h2{
+       text-align: center;
+       font-family:sans-serif;
+       font-size:5em;
+       text-shadow:5px 5px red;
+       transition:text-shadow .3s;
+       
+      }
+      p{
+        text-align: center;
+       font-family:sans-serif;
+       transition:text-shadow .3s;
+       font-size:1.5em;
+        }
+      h1:hover, h2:hover{
+        text-shadow:-5px 5px blue;
+        }
+      .vycpavka{
+        height:calc(40vh - 5em);
+        }
+      .dolni{
+        position:absolute;
+        bottom:0;
+        width:100%;
+        text-align: center;
+        padding-bottom:5px;
+        cursor:pointer;
+        box-shadow:0px 0 red inset;
+        background:none;
+        transition:box-shadow 0.3s;
+
+        }
+        .dolni svg{
+          height:2em;
+        }
+        .dolni:hover{
+          box-shadow:10px 5em red inset;
+        }
+        .dolni:hover .modra{
+          opacity:1;
+        }
+        .modra{
+          opacity:0;
+          transition: opacity .2s;
+        }
+        #dole{
+          position: absolute ;
+          top:100vh;
+          min-height:100vh;
+          background-color:black;
+          color:white;
+          width:100%;
+          padding:0px;
+        }
+        html {
+  scroll-behavior: smooth;
+}
+        
+    </style>
+  </head>
+  <body>
+  <div class=vycpavka></div>
+  <p>Tento web je pouze můj</P>
+
+    <h1>a tak to taky zůstane.</h1>
+    <a href=#dole >
+        <div class="dolni">
+          
+          <!-- ikona dolů --><svg alt="dolů"  viewBox="0 0 203.428 144.541"><path class=modra style="stroke: blue; fill: none; stroke-width: 70px; stroke-linecap: round; stroke-linejoin: round;" d="M 36.403 33.19 L 99.572 110.278 L 173.447 33.191"></path><path style="stroke: rgb(0, 0, 0); fill: none; stroke-width: 20px; stroke-linecap: round; stroke-linejoin: round;" d="M 36.403 33.19 L 99.572 110.278 L 173.447 33.191"></path></svg>
+        </div>
+    </a>
+    <div id=dole>
+      <div class=vycpavka></div>
+      <p>A tady dole</p>
+      <h2>Už nic jiného není.</h2>
+    </div>
+  </body>
+</html>
