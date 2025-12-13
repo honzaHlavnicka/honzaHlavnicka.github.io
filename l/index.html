@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Fuzzy Link Search</title>
+  <title>Hledání odkazů</title>
   <style>
     :root{
-      --bg1:#0a0f1c;
-      --bg2:#0d1528;
+      --bg1:#000000;
+      --bg2:#052e33;
       --card:#101b33;
       --accent:#6ee7b7;
       --muted:#9aa4b2;
@@ -41,24 +41,26 @@
     .searchBox{
       width:100%;
       position:relative;
+      text-align:center; /* center placeholder text horizontally */
     }
 
     #placeholderInfo{
       position:absolute;
-      top:50%;
+      top:-64px; /* place above the input */
       left:50%;
-      transform:translate(-50%,-50%);
+      transform:translateX(-50%);
       color:var(--muted);
-      font-size:14px;
+      font-size:40px; /* large time/date */
+      font-weight:600;
       pointer-events:none;
-      opacity:.75;
+      opacity:.9;
       transition:opacity .2s ease;
     }
 
     .inputLarge{
       width:100%;
-      padding:22px 20px;
-      font-size:20px;
+      padding:28px 24px; /* bigger input */
+      font-size:24px;
       border-radius:var(--radius);
       border:1px solid rgba(255,255,255,0.07);
       background:rgba(255,255,255,0.06);
@@ -74,12 +76,14 @@
 
     .list{
       margin-top:26px;
-      display:grid;
+      display:none; /* hidden initially */
       gap:12px;
       max-height:60vh;
       overflow:auto;
       padding-right:6px;
     }
+    /* show list when user starts typing (wrap gets .top) */
+    .wrap.top .list{display:grid;}
 
     .item{
       background:rgba(255,255,255,0.05);
@@ -101,19 +105,16 @@
       box-shadow:0 0 0 2px var(--accent);
     }
 
-    .titleName{
-      font-weight:600;
-    }
-    .url{
-      margin-top:6px;
-      font-size:13px;
-      color:var(--muted);
-    }
+    .titleName{font-weight:600;}
+    .url{margin-top:6px;font-size:13px;color:var(--muted);}    
 
-    .empty{
-      text-align:center;
-      padding:20px;
-      color:var(--muted);
+    .empty{ text-align:center; padding:20px; color:var(--muted);} 
+    #placeholderInfo {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 90vw;
+      margin-bottom: 70px;
     }
   </style>
 </head>
@@ -178,7 +179,8 @@
 
     function today(){
       const d=new Date();
-      return d.toLocaleDateString('cs-CZ',{weekday:'long',day:'numeric',month:'long'});
+      return d.toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'}) + ' · ' +
+             d.toLocaleDateString('cs-CZ',{weekday:'long',day:'numeric',month:'long'});
     }
 
     placeholder.textContent=today();
@@ -210,8 +212,18 @@
     function escape(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
     function openUrl(u){window.open(u,'_blank');}
 
+    // open Google search for a query
+    function openGoogle(q){
+      const term = q.replace(/^@+\s*/, '');
+      if(!term) return;
+      const url = 'https://www.google.com/search?q=' + encodeURIComponent(term);
+      openUrl(url);
+    }
+
     function update(q){
       q=q.trim();
+      // when using @query, hide local results
+      if(q.startsWith('@')){ filtered=[]; render(); return; }
       if(!q){filtered=[...LINKS]; render(); return;}
 
       // if exact URL typed → open immediately
@@ -231,14 +243,16 @@
 
     input.addEventListener('input',e=>{
       const val=e.target.value;
-      placeholder.style.opacity=val?0:1;
-      wrap.classList.toggle('top', !!val);
+      placeholder.style.opacity=val?0:1; // hide time/date when typing
+      wrap.classList.toggle('top', !!val); // move input up and reveal list
       update(val);
     });
 
     input.addEventListener('keydown',e=>{
       if(e.key==='Enter'){
         e.preventDefault();
+        const val = input.value.trim();
+        if(val.startsWith('@')){ openGoogle(val); return; }
         if(selected>=0 && filtered[selected]) openUrl(filtered[selected].url);
         else if(filtered[0]) openUrl(filtered[0].url);
       }
