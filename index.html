@@ -1,114 +1,144 @@
 
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="cs"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>honzův web</title>
+
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <style>
-      body{
-        padding:0;
-        margin:0;
-      }
-    h1, h2{
-       text-align: center;
-       font-family:sans-serif;
-       font-size:5em;
-       text-shadow:5px 5px red;
-       transition:text-shadow .3s;
-       
-      }
-      p{
-        text-align: center;
-       font-family:sans-serif;
-       transition:text-shadow .3s;
-       font-size:1.5em;
-        }
-      h1:hover, h2:hover{
-        text-shadow:-5px 5px blue;
-        }
-      .vycpavka{
-        height:calc(40vh - 5em);
-        }
-      .dolni{
-        position:absolute;
-        bottom:0;
-        width:100%;
-        text-align: center;
-        padding-bottom:5px;
-        cursor:pointer;
-        box-shadow:0px 0 red inset;
-        background:none;
-        transition:box-shadow 0.3s;
 
-        }
-        .dolni svg{
-          height:2em;
-        }
-        .dolni:hover{
-          box-shadow:10px 5em red inset;
-        }
-        .dolni:hover .modra{
-          opacity:1;
-        }
-        .modra{
-          opacity:0;
-          transition: opacity .2s;
-        }
-        #dole{
-          position: absolute ;
-          top:100vh;
-          min-height:100vh;
-          background-color:black;
-          color:white;
-          width:100%;
-          padding:0px;
-        }
-      .zbytekStranky{
-        background:darkgrey;
-        color:white;
-        width:100%;
-        min-height:100svh;
-        position: absolute ;
-        top:200vh;
-        padding:0px;
+    <style>
+      /* === reset + scroll snap === */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        scroll-behavior: smooth;
+        scroll-snap-type: y mandatory;
+        font-family: sans-serif;
       }
-        html {
-  scroll-behavior: smooth;
-}
-      main{
-        max-width:500px;
-        margin:auto;
+
+      section {
+        min-height: 100vh;
+        scroll-snap-align: start;
+        position: relative;
       }
-        
+
+      /* === obecné === */
+      h1,
+      h2 {
+        text-align: center;
+        font-size: 5em;
+        text-shadow: 5px 5px red;
+        transition: text-shadow 0.3s;
+        margin: 0.2em 0;
+      }
+
+      h1:hover,
+      h2:hover {
+        text-shadow: -5px 5px blue;
+      }
+
+      p {
+        text-align: center;
+        font-size: 1.5em;
+        margin: 0.5em 0;
+      }
+
+      .vycpavka {
+        height: calc(40vh - 5em);
+      }
+
+      /* === šipka dolů === */
+      .dolni {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        padding-bottom: 5px;
+        cursor: pointer;
+        box-shadow: 0px 0 red inset;
+        background: none;
+        transition: box-shadow 0.3s;
+      }
+
+      .dolni svg {
+        height: 2em;
+      }
+
+      .dolni:hover {
+        box-shadow: 10px 5em red inset;
+      }
+
+      .dolni:hover .modra {
+        opacity: 1;
+      }
+
+      .modra {
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
+
+      /* === sekce === */
+      #hero {
+        background: white;
+        color: black;
+      }
+
+      #dole {
+        background: black;
+        color: white;
+      }
+
+      .zbytekStranky {
+        background: darkgrey;
+        color: white;
+      }
+
+      main {
+        max-width: 500px;
+        margin: auto;
+      }
     </style>
   </head>
-  <body>
-  <div class=vycpavka></div>
-  <p>Faktem je, že</P>
 
-    <h1>Honza je super</h1>
-    <a href=#dole >
+  <body>
+    <!-- === první sekce === -->
+    <section id="hero">
+      <div class="vycpavka"></div>
+      <p>Faktem je, že</p>
+      <h1>Honza je super</h1>
+
+      <a href="#dole">
         <div class="dolni">
-          
-          <!-- ikona dolů --><svg alt="dolů"  viewBox="0 0 203.428 144.541"><path class=modra style="stroke: blue; fill: none; stroke-width: 70px; stroke-linecap: round; stroke-linejoin: round;" d="M 36.403 33.19 L 99.572 110.278 L 173.447 33.191"></path><path style="stroke: rgb(0, 0, 0); fill: none; stroke-width: 20px; stroke-linecap: round; stroke-linejoin: round;" d="M 36.403 33.19 L 99.572 110.278 L 173.447 33.191"></path></svg>
+          <svg viewBox="0 0 203.428 144.541">
+            <path class="modra" style="stroke: blue; fill: none; stroke-width: 70px; stroke-linecap: round; stroke-linejoin: round" d="M 36.403 33.19 L 99.572 110.278 L 173.447 33.191"></path>
+            <path style="stroke: rgb(0, 0, 0); fill: none; stroke-width: 20px; stroke-linecap: round; stroke-linejoin: round" d="M 36.403 33.19 L 99.572 110.278 L 173.447 33.191"></path>
+          </svg>
         </div>
-    </a>
-    <div id=dole>
-      <div class=vycpavka></div>
+      </a>
+    </section>
+
+    <!-- === druhá sekce === -->
+    <section id="dole">
+      <div class="vycpavka"></div>
       <p>A to je</p>
-      <h2 >nezpochybnitelné</h2>
-    </div>
-    <div class=zbytekStranky >
-      <main>
-        <div class=vycpavka ></div>
-        <h2>Honzův web</h2>
-        <p>je zatím ve výstavbě, ale můžeš si mezitím zahrát <a href="https://bang.honzaa.cz">bang nebo prší</a>.</p>
+      <h2>nezpochybnitelné</h2>
+    </section>
+
+    <!-- === třetí sekce === -->
+    <section class="zbytekStranky" style="background: url(https://bang.honzaa.cz/img/pozadi2.jpg) fixed;background-size: cover;">
+      <div class="vycpavka"></div><main style="background: #fff9;color: black;padding: 20px;border-radius: 20px;">
+  <p>Vytvořil</p>
+        <h2>Bang a prší,</h2>
+        <p>které jde hrát multiplayrově na webu   <a href="https://bang.honzaa.cz">bang.honzaa.cz</a>.
+        </p>
       </main>
-    </div>
-  </body>
-</html>
+    </section>
+  
+
+</body></html>
